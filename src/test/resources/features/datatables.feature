@@ -27,7 +27,6 @@ Feature: User should view all the main modules of the app
       | Reports & Segments |
       | System             |
 
-
   Scenario: Login with given information
     Given user is on the login page
     When user enters below credentials
@@ -40,6 +39,7 @@ Feature: User should view all the main modules of the app
 
 
     #data table - list of map
+  @smoke
   Scenario: verify each product price
     Given User is on the HomePage
     Then User should be able to see expected prices in following products
@@ -62,6 +62,7 @@ Feature: User should view all the main modules of the app
 
 
     #datatable - LIst of List
+  @smoke
   Scenario: verify each product price
     Given User is on the HomePage
     Then User should be able to see expected prices in following products with listOfList

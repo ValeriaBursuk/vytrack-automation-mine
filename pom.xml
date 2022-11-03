@@ -11,28 +11,36 @@
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
 
+        <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
             <version>5.2.3</version>
         </dependency>
 
+
+        <!-- TO INTERACT WITH BROWSERS-->
+        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>3.141.59</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
             <version>7.3.2</version>
         </dependency>
 
+        <!--CUCUMBER WITH JUNIT ASSERTION TOOL-->
+        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-junit -->
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-junit</artifactId>
@@ -40,11 +48,15 @@
             <scope>test</scope>
         </dependency>
 
+
+        <!--FOR PRETTY CUCUMBER REPORT -->
         <dependency>
             <groupId>me.jvt.cucumber</groupId>
             <artifactId>reporting-plugin</artifactId>
             <version>7.3.0</version>
         </dependency>
+
+
 
         <dependency>
             <groupId>com.github.javafaker</groupId>
@@ -63,6 +75,7 @@
                 <configuration>
                     <parallel>methods</parallel>
                     <threadCount>4</threadCount>
+                    <perCoreThreadCount>false</perCoreThreadCount>
                     <testFailureIgnore>true</testFailureIgnore>
                     <includes>
                         <include>**/CukesRunner*.java</include>
@@ -72,12 +85,5 @@
             </plugin>
         </plugins>
     </build>
-
-
-
-
-
-
-
 
 </project>

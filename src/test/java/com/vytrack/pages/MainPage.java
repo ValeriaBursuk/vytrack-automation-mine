@@ -13,8 +13,4 @@ public class MainPage extends BasePage {
     @FindBy(css = "#user-menu>a") //id = user-menu ,>  a - child
     public WebElement username;
 
-
-
-
-
 }
