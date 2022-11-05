@@ -4,7 +4,6 @@ Feature: User should view all the main modules of the app
   As a user, I should be accessing all the main modules of the app.
 
 #  acceptance criteria 1
-  @wip
   Scenario: Module options for "driver"
     Given user is on the login page
     When user enters "truck driver" information
@@ -41,7 +40,6 @@ Feature: User should view all the main modules of the app
 
 
     #data table - list of map
-  @smoke
   Scenario: verify each product price
     Given User is on the HomePage
     Then User should be able to see expected prices in following products

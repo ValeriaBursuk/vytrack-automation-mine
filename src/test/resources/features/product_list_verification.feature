@@ -1,4 +1,3 @@
-@smoke
 Feature:Product List Verification
 
   Scenario: Verify all the products exist in the products pages
