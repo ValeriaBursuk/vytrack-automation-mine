@@ -13,4 +13,7 @@ public class MainPage extends BasePage {
     @FindBy(css = "#user-menu>a") //id = user-menu ,>  a - child
     public WebElement username;
 
+    @FindBy(xpath = "//div[@class='loader-frame']")
+    public WebElement loaderMask; //it disappears too fast
+
 }
