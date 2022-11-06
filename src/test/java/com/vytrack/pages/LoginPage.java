@@ -1,10 +1,16 @@
 package com.vytrack.pages;
 
+import com.vytrack.utilities.BrowserUtils;
 import com.vytrack.utilities.ConfigReader;
+import com.vytrack.utilities.Driver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
-public class LoginPage extends BasePage{
+public class LoginPage {
+    public LoginPage(){
+        PageFactory.initElements(Driver.getDriver(), this);
+    }
 
     @FindBy(xpath = "//input[@id='prependedInput']")
     public WebElement usernameBox;
@@ -18,7 +24,9 @@ public class LoginPage extends BasePage{
 
     public void login(String username, String password){
         usernameBox.sendKeys(username);
+        BrowserUtils.sleep(1);
         passwordBox.sendKeys(password);
+        BrowserUtils.sleep(1);
         loginBtn.click();
     }
 
