@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
                 "json:target/cucumber.json"}, //for report with jenkins
         features = "src/test/resources/features",
         glue = "com/vytrack/step_definitions",
-       dryRun = true,
+       //dryRun = true,
        tags = "@wip"
 )
 public class CukesRunner {

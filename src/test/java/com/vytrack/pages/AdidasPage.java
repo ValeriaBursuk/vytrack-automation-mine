@@ -62,6 +62,34 @@ import java.util.List;
         public List<WebElement> products;
 //xpath = "//a[@class='hrefch']")
 
+        public int addToCart(String category, String product){
+            Driver.getDriver().findElement(By.xpath("//a[.='" + category + "']")).click();
+            BrowserUtils.sleep(1);
+            Driver.getDriver().findElement(By.xpath("//a[.='"+product+"']")).click();
+            BrowserUtils.sleep(1);
+
+            String fullPriceText = purchasePrice.getText();
+//             "$790 *includes taxes"
+//            we wanna get 790 ->
+            String [] arr = fullPriceText.split(" ");
+            //-> [$790] [*includes] [taxes]
+            // arr[0].substring(1); //--> "790"  --> as a string we want integer
+
+            int price = Integer.parseInt(arr[0].substring(1));
+
+            addCart.click();
+            BrowserUtils.waitForAlertIsPresent(5);
+            BrowserUtils.acceptJSAlert();
+            homeLink.click();
+
+            return price;
+        }
+
+
+
+
+
+
 
 
         public void clickButton(String button){
@@ -84,28 +112,7 @@ import java.util.List;
         }
 
 
-        public int addToCart(String category, String product){
-            Driver.getDriver().findElement(By.xpath("//a[.='" + category + "']")).click();
-            BrowserUtils.sleep(1);
-            Driver.getDriver().findElement(By.xpath("//a[.='"+product+"']")).click();
-            BrowserUtils.sleep(1);
 
-            String fullPriceText = purchasePrice.getText();
-//             "$790 *includes taxes"
-//            we wanna get 790 ->
-            String [] arr = fullPriceText.split(" ");
-            //-> [$790] [*includes] [taxes]
-           // arr[0].substring(1); //--> "790"  --> as a string we want integer
-
-            int price = Integer.parseInt(arr[0].substring(1));
-
-            addCart.click();
-            BrowserUtils.waitForAlertIsPresent(5);
-            BrowserUtils.acceptJSAlert();
-            homeLink.click();
-
-            return price;
-        }
 
 
 

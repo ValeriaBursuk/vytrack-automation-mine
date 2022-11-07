@@ -21,11 +21,13 @@ public class AdidasNew_StepDefinitions {
 
     @When("user navigates to {string} and chooses {string} and clicks on Add to cart and accepts pop up confirmation.")
     public void user_navigates_to_and_chooses_and_clicks_on_add_to_cart_and_accepts_pop_up_confirmation(String category, String product) {
+        //price before adding to cart
         adidaspage.addToCart(category, product);
     }
     @When("navigates to {string} and chooses {string} and clicks on Add to cart and accepts pop up confirmation.")
     public void navigates_to_and_chooses_and_clicks_on_add_to_cart_and_accepts_pop_up_confirmation(String category, String product) {
-adidaspage.addToCart(category, product);
+        //we need price before adding to cart
+        adidaspage.addToCart(category, product);
     }
     @When("navigates to Cart Delete {string} from cart.")
     public void navigates_to_cart_delete_from_cart(String string) {
@@ -39,6 +41,7 @@ adidaspage.addToCart(category, product);
     public void fills_in_all_web_form_fields() {
 
     }
+
     @When("clicks on {string}")
     public void clicks_on(String string) {
 
