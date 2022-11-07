@@ -1,6 +1,8 @@
 package com.vytrack.utilities;
 
 import org.junit.Assert;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -10,6 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class BrowserUtils {
 
@@ -21,8 +24,16 @@ public class BrowserUtils {
             e.printStackTrace();
         }
     }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * Waits for element to be clickable
+     */
+    public static WebElement waitForElementToBeClickable(WebElement element, int timeout) {
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), timeout);
+        return wait.until(ExpectedConditions.elementToBeClickable(element));
+    }
 
-
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////
     public static boolean checkVisibilityOfElement(WebElement element) {
         boolean result = false;
         WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 20);
@@ -109,7 +120,7 @@ public class BrowserUtils {
     /**
      * this method will accept Dropdown as WebElement and return all the options' text as a List of String
      */
-    public static List<String> getDropdownOptionsAsString(WebElement selectElement){
+    public static List<String> getDropdownOptionsAsString(WebElement selectElement) {
         Select select = new Select(selectElement);
         List<WebElement> optionsElements = select.getOptions();
         List<String> listOfActualOptions = new ArrayList<>();
@@ -121,6 +132,7 @@ public class BrowserUtils {
 
         return listOfActualOptions;
     }
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public static void waitUntilClickable(WebElement element) {
@@ -128,9 +140,8 @@ public class BrowserUtils {
         wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
-////////////////////////////////////////////////////////////////////////////////////////////////
-
-    public static List<String> getElementsText(List<WebElement> elements){
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
+    public static List<String> getElementsText(List<WebElement> elements) {
         List<String> elementsText = new ArrayList<>();
         for (WebElement element : elements) {
             elementsText.add(element.getText());
@@ -139,16 +150,63 @@ public class BrowserUtils {
         return elementsText;
     }
 
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    public static List<String> getElementsTextWithStream(List<WebElement> elements) {
 
+        return elements.stream().map(x->x.getText()).collect(Collectors.toList());
+    }
 
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Scrolls down to an element using JavaScript
+     *
+     * @param element
+     */
+    public static void scrollToElement(WebElement element) {
+        ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
+    }
 
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Clicks on an element using JavaScript
+     *
+     * @param element
+     */
+    public static void clickWithJS(WebElement element) {
+        ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
+        ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].click();", element);
+    }
 
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Waits for alertIsPresent
+     */
+    public static void waitForAlertIsPresent(int timeout) {
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), timeout);
+        wait.until(ExpectedConditions.alertIsPresent());
+    }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    public static void clickRadioButton(List<WebElement> radioButtons, String attributeValue) {
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 10);
+        for (WebElement radioButtton : radioButtons) {
+            if (radioButtton.getAttribute("value").equalsIgnoreCase(attributeValue)) {
+                wait.until(ExpectedConditions.attributeContains(radioButtton, "value", attributeValue));
+                radioButtton.click();
+            }
+        }
+    }
+
+/////////////////////////////////////////////////////////
+    public static void acceptJSAlert(){
+        Alert alert = Driver.getDriver().switchTo().alert();
+        alert.accept();
+    }
 
 
 
@@ -157,6 +215,7 @@ public class BrowserUtils {
 //            File File = ((TakesScreenshot)Driver.getDriver()).getScreenshotAs(OutputType.FILE);
 //            FileUtils.copyFile(File, new File(""
 //                    + FileName + ".jpeg"));
+//
 //        } catch(IOException ie){
 //        }
 //    }

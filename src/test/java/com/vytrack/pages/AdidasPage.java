@@ -1,5 +1,6 @@
 package com.vytrack.pages;
 
+import com.github.javafaker.Faker;
 import com.vytrack.utilities.BrowserUtils;
 import com.vytrack.utilities.Driver;
 import org.openqa.selenium.By;
@@ -40,7 +41,7 @@ import java.util.List;
         public WebElement city;
 
         @FindBy(id = "card")
-        public WebElement card;
+        public WebElement creditCard;
 
         @FindBy(id = "month")
         public WebElement month;
@@ -62,12 +63,11 @@ import java.util.List;
 //xpath = "//a[@class='hrefch']")
 
 
-        public void clickCategory(String category){
 
-            Driver.getDriver().findElement(By.xpath("//a[.='" + category + "']")).click();
-            BrowserUtils.sleep(2);
-
+        public void clickButton(String button){
+            Driver.getDriver().findElement(By.xpath("//button[.='"+button+"']"));
         }
+
 
 
         public String getProductPrice(String product){
@@ -77,12 +77,38 @@ import java.util.List;
             return actualPrice.substring(1);
         }
 
-        //String priceString = purchasePrice.getText() ==   "$790 *includes taxes"
-        //we wanna get 790 ->
-        //String [] arr = priceString.split(" ") -> [$790] [*includes] [taxes]
-        //arr[0].substring(1) --> "790"  --> as a string we want integer
 
-        //int price = Integer.parseInt(arr[0].substring(1))
+        public void clickCategory(String category){
+            Driver.getDriver().findElement(By.xpath("//a[.='" + category + "']")).click();
+            BrowserUtils.sleep(1);
+        }
+
+
+        public int addToCart(String category, String product){
+            Driver.getDriver().findElement(By.xpath("//a[.='" + category + "']")).click();
+            BrowserUtils.sleep(1);
+            Driver.getDriver().findElement(By.xpath("//a[.='"+product+"']")).click();
+            BrowserUtils.sleep(1);
+
+            String fullPriceText = purchasePrice.getText();
+//             "$790 *includes taxes"
+//            we wanna get 790 ->
+            String [] arr = fullPriceText.split(" ");
+            //-> [$790] [*includes] [taxes]
+           // arr[0].substring(1); //--> "790"  --> as a string we want integer
+
+            int price = Integer.parseInt(arr[0].substring(1));
+
+            addCart.click();
+            BrowserUtils.waitForAlertIsPresent(5);
+            BrowserUtils.acceptJSAlert();
+            homeLink.click();
+
+            return price;
+        }
+
+
+
 
 
         public int removeProduct(String productName){
@@ -96,6 +122,21 @@ import java.util.List;
             return Integer.parseInt(price);
         }
 
-
+        public void fillOutForm(){
+            Faker faker = new Faker();
+            name.sendKeys(faker.name().fullName());
+            country.sendKeys(faker.country().name());
+            city.sendKeys(faker.country().capital());
+            creditCard.sendKeys(faker.finance().creditCard());
+            month.sendKeys(String.valueOf(faker.number().numberBetween(1, 12)));
+            year.sendKeys(String.valueOf(faker.number().numberBetween(2023, 2032)));
+        }
 
 }
+//String priceString = purchasePrice.getText() ==   "$790 *includes taxes"
+//we wanna get 790 ->
+//String [] arr = priceString.split(" ") -> [$790] [*includes] [taxes]
+//arr[0].substring(1) --> "790"  --> as a string we want integer
+
+//int price = Integer.parseInt(arr[0].substring(1))
+

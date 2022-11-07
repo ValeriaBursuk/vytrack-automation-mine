@@ -2,7 +2,7 @@
 Feature: User should be able to login
   User Story:
   As a user, I should be able to login to VyTrack application with valid credentials to different accounts. And Dashboard options should be displayed
-  Accounts are: driver, sales manager, storemanager.
+  Accounts are: driver, sales manager, store manager.
 
   Background:
     Given user is on the login page

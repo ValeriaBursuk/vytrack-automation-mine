@@ -47,7 +47,7 @@ public class MainStepDefinitions {
      */
     @Then("user should be able to see the following modules")
     public void user_should_be_able_to_see_the_following_modules(List<String> expectedModules) {
-       BrowserUtils.waitForInvisibilityOf(mainPage.loaderMask);
+    //   BrowserUtils.waitForInvisibilityOf(mainPage.loaderMask);
         List<String> actualModulesText = BrowserUtils.getElementsText(mainPage.allModules);
         Assert.assertEquals(expectedModules, actualModulesText);
     }
