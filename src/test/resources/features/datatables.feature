@@ -1,4 +1,4 @@
-@smoke
+
 Feature: User should view all the main modules of the app
   User story:
   As a user, I should be accessing all the main modules of the app.

@@ -28,7 +28,7 @@ import java.util.List;
         @FindBy(xpath = "//a[.='Cart']")
         public WebElement cart;
 
-        @FindBy(xpath = "//button[.='Place Order']")
+        @FindBy(xpath = "//button[text()='Place Order']")
         public WebElement placeButton;
 
         @FindBy(id = "name")
@@ -53,10 +53,10 @@ import java.util.List;
         public WebElement purchaseButton;
 
         @FindBy(xpath = "//p[@class='lead text-muted ']")
-        public WebElement confirmation;
+        public WebElement confirmation;  //whole window
 
         @FindBy(xpath = "//button[@class=\"confirm btn btn-lg btn-primary\"]")
-        public WebElement OK;
+        public WebElement okBtn;
 
         @FindBy(css = ".hrefch")
         public List<WebElement> products;
@@ -78,25 +78,13 @@ import java.util.List;
             int price = Integer.parseInt(arr[0].substring(1));
 
             addCart.click();
+
             BrowserUtils.waitForAlertIsPresent(5);
             BrowserUtils.acceptJSAlert();
             homeLink.click();
 
             return price;
         }
-
-
-
-
-
-
-
-
-        public void clickButton(String button){
-            Driver.getDriver().findElement(By.xpath("//button[.='"+button+"']"));
-        }
-
-
 
         public String getProductPrice(String product){
 
@@ -105,24 +93,16 @@ import java.util.List;
             return actualPrice.substring(1);
         }
 
-
         public void clickCategory(String category){
             Driver.getDriver().findElement(By.xpath("//a[.='" + category + "']")).click();
             BrowserUtils.sleep(1);
         }
 
-
-
-
-
-
-
-
         public int removeProduct(String productName){
             //tbody//td[.='Apple monitor 24']/../td[3]
             //tbody//td[.='Samsung galaxy s6']/../td[3]
 
-            String priceForProductLocator = "//tbody//td[.='"+ productName +"']/../td[3]";
+            String priceForProductLocator = "//tbody//td[.='"+ productName +"']/../td[3]"; //from the table 700
             String price = Driver.getDriver().findElement(By.xpath(priceForProductLocator)).getText();
             String productDelete = "//tbody//td[.='"+productName+"']/../td/a";
             Driver.getDriver().findElement(By.xpath(productDelete)).click();
