@@ -21,5 +21,5 @@ public class MainPage {
 
     @FindBy(xpath = "//div[@class='loader-frame']")
     public WebElement loaderMask; //it disappears too fast
-
+////
 }
