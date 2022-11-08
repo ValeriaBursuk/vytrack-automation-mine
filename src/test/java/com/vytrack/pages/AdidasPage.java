@@ -15,7 +15,6 @@ import java.util.List;
         public AdidasPage(){
             PageFactory.initElements(Driver.getDriver(),this);
         }
-
         @FindBy(xpath = "//h3[@class='price-container']")
         public WebElement purchasePrice;
 
