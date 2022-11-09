@@ -6,12 +6,13 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-import java.net.MalformedURLException;
+
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 public class Driver {
 
+    static String browser;
 
     // We make WebDriver private, because we want to close access from outside of class
     // We make it static, because we will use it inside static method , can't create an instance of it
@@ -21,8 +22,6 @@ public class Driver {
     private Driver() {
     }
 
-
-
     private static WebDriver driver;
     private static InheritableThreadLocal<WebDriver> driverPool = new InheritableThreadLocal<>();
 
@@ -31,8 +30,18 @@ public class Driver {
 
         // it will check if driver is null and if it is we will set up browser inside if statement
         // if you already setup driver and using it again for following line of codes, it will return to same driver
+
         if (driverPool.get() == null) {
-            String browser = ConfigReader.getProperty("browser");
+//
+            if (System.getProperty("BROWSER") == null) {
+                browser = ConfigReader.getProperty("browser");
+            } else {
+                browser = System.getProperty("BROWSER");
+            }
+
+            System.out.println("Browser: " + browser);
+//                String browserName = System.getProperty("browser") != null ? browserName = System.getProperty("browser") : ConfigReader.getProperty("browser");
+            //  String browser = ConfigReader.getProperty("browser");
 
             switch (browser) {
                 case "remote-chrome":
@@ -56,13 +65,10 @@ public class Driver {
                     driverPool.set(new ChromeDriver());
                     driverPool.get().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
                     break;
-                default:
-                    System.out.println("UNKNOWN BROWSER TYPE " + browser);
-                    driver = null;
             }
 
         }
-        
+
         return driverPool.get();
     }
 
@@ -74,3 +80,4 @@ public class Driver {
     }
 
 }
+
