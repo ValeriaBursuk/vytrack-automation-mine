@@ -1,4 +1,4 @@
-@smoke
+
 Feature: Adidas feature
   Scenario:
     Given User is on the main page
@@ -11,3 +11,9 @@ Feature: Adidas feature
   And captures and log purchase Id and Amount.
   Then asserts purchase amount equals expected.
   Then Click on Ok
+
+    @link
+    Scenario:link check
+      Given User is on the main page
+      Then check if links are working
+

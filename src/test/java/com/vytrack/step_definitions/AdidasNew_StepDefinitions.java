@@ -9,8 +9,16 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class AdidasNew_StepDefinitions {
 
@@ -88,5 +96,38 @@ public class AdidasNew_StepDefinitions {
         adidaspage.okBtn.click();
     }
 
+    @Then("check if links are working")
+    public void check_if_links_are_working() {
+
+        List<WebElement> linksHref = Driver.getDriver().findElements(By.xpath("//a[contains(@class, 'hrefch')]"));
+        HttpURLConnection httpURLConnection = null;
+
+        Map<String, Object> map = new HashMap<>();
+
+        for (WebElement link : linksHref) {
+            String hrefValue = link.getAttribute("href");
+            String linkText = link.getText();
+            System.out.println(linkText);
+            try {
+                URL url = new URL(hrefValue);
+                httpURLConnection = (HttpURLConnection)url.openConnection();
+                httpURLConnection.setReadTimeout(10000);
+                httpURLConnection.connect();
+                BrowserUtils.sleep(1);
+                int responseCode = httpURLConnection.getResponseCode();
+                String respCode = String.valueOf(responseCode);
+                System.out.println(respCode);
+                if(responseCode==200){
+                    map.put(hrefValue, responseCode);
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        System.out.println(map.entrySet());
+
+    }
 
 }

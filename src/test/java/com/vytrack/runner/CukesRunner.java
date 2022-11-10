@@ -11,9 +11,8 @@ import org.junit.runner.RunWith;
                 "me.jvt.cucumber.report.PrettyReports:target/cucumber", //cucumber report
                 "json:target/cucumber.json"}, //for report with jenkins
         features = "src/test/resources/features",
-        glue = "com/vytrack/step_definitions"
-       //dryRun = true,
-      // tags = "@wip"
+        glue = "com/vytrack/step_definitions",
+tags = "@link"
 )
 public class CukesRunner {
 
