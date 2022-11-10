@@ -1,5 +1,5 @@
-
 Feature: Adidas feature
+  @smoke
   Scenario:
     Given User is on the main page
   When user navigates to "Laptops" and chooses "Sony vaio i5" and clicks on Add to cart and accepts pop up confirmation.
@@ -12,7 +12,6 @@ Feature: Adidas feature
   Then asserts purchase amount equals expected.
   Then Click on Ok
 
-    @link
     Scenario:link check
       Given User is on the main page
       Then check if links are working
